@@ -1563,7 +1563,8 @@ clcache.py v{}
             cfg.setMaximumCacheSize(maxSizeValue)
         return 0
 
-    print(sys.argv)
+    if "-ccbin" in sys.argv:
+        raise Exception
 
     compiler = findCompilerBinary()  # WILL TODO: we should find nvcc.exe here
     if not compiler:
