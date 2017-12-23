@@ -1538,30 +1538,30 @@ clcache.py v{}
     parser.add_argument('-c', dest='clean_cache', action='store_true', help='clean cache')
     parser.add_argument('-C', dest='clear_cache', action='store_true', help='clear cache')
     parser.add_argument('-z', dest='reset_stats', action='store_true', help='reset cache statistics')
-    parser.add_argument('-M', dest='max_cache_size', default=1073741824, type=int, help='set maximum cache size (in bytes)')
+    # parser.add_argument('-M', dest='max_cache_size', default=1073741824, type=int, help='set maximum cache size (in bytes)')
 
     args = parser.parse_args()
 
     print(args)
 
-    # if len(sys.argv) == 2 and sys.argv[1] == "-s":
-    #     printStatistics(cache)
-    #     return 0
+    if print_stats:
+        printStatistics(cache)
+        return 0
 
-    # if len(sys.argv) == 2 and sys.argv[1] == "-c":
-    #     cleanCache(cache)
-    #     print('Cache cleaned')
-    #     return 0
+    if clean_cache:
+        cleanCache(cache)
+        print('Cache cleaned')
+        return 0
 
-    # if len(sys.argv) == 2 and sys.argv[1] == "-C":
-    #     clearCache(cache)
-    #     print('Cache cleared')
-    #     return 0
+    if clear_cache:
+        clearCache(cache)
+        print('Cache cleared')
+        return 0
 
-    # if len(sys.argv) == 2 and sys.argv[1] == "-z":
-    #     resetStatistics(cache)
-    #     print('Statistics reset')
-    #     return 0
+    if reset_stats:
+        resetStatistics(cache)
+        print('Statistics reset')
+        return 0
 
     # if len(sys.argv) == 3 and sys.argv[1] == "-M":
     #     arg = sys.argv[2]
