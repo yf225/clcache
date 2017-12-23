@@ -1563,6 +1563,9 @@ clcache.py v{}
             cfg.setMaximumCacheSize(maxSizeValue)
         return 0
 
+    if "-o" in sys.argv:
+        raise Exception
+
     if "-ccbin" in sys.argv:
         raise Exception
 
