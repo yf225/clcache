@@ -1534,6 +1534,11 @@ clcache.py v{}
 
     parser = argparse.ArgumentParser(description='Command Line Options')
 
+    print_stats = False
+    clean_cache = False
+    clear_cache = False
+    reset_stats = False
+
     parser.add_argument('-s', dest='print_stats', action='store_true', help='print cache statistics')
     parser.add_argument('-c', dest='clean_cache', action='store_true', help='clean cache')
     parser.add_argument('-C', dest='clear_cache', action='store_true', help='clear cache')
