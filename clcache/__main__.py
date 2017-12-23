@@ -1563,6 +1563,8 @@ clcache.py v{}
             cfg.setMaximumCacheSize(maxSizeValue)
         return 0
 
+    print(sys.argv)
+
     compiler = findCompilerBinary()  # WILL TODO: we should find nvcc.exe here
     if not compiler:
         print("Failed to locate cl.exe on PATH (and CLCACHE_CL is not set), aborting.")
