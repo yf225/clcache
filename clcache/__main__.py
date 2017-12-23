@@ -25,7 +25,6 @@ import sys
 import threading
 from tempfile import TemporaryFile
 from typing import Any, List, Tuple, Iterator
-import argparse
 
 VERSION = "4.1.0-dev"
 
@@ -1530,58 +1529,39 @@ clcache.py v{}
 
     cache = Cache()
 
-    # Rewrite this part with argparse
-
-    parser = argparse.ArgumentParser(description='Command Line Options')
-
-    print_stats = False
-    clean_cache = False
-    clear_cache = False
-    reset_stats = False
-
-    parser.add_argument('-s', dest='print_stats', action='store_true', help='print cache statistics')
-    parser.add_argument('-c', dest='clean_cache', action='store_true', help='clean cache')
-    parser.add_argument('-C', dest='clear_cache', action='store_true', help='clear cache')
-    parser.add_argument('-z', dest='reset_stats', action='store_true', help='reset cache statistics')
-    # parser.add_argument('-M', dest='max_cache_size', default=1073741824, type=int, help='set maximum cache size (in bytes)')
-
-    args = parser.parse_args()
-
-    print(args)
-
-    if print_stats:
+    if len(sys.argv) == 2 and sys.argv[1] == "-s":
         printStatistics(cache)
         return 0
 
-    if clean_cache:
+    if len(sys.argv) == 2 and sys.argv[1] == "-c":
         cleanCache(cache)
         print('Cache cleaned')
         return 0
 
-    if clear_cache:
+    if len(sys.argv) == 2 and sys.argv[1] == "-C":
         clearCache(cache)
         print('Cache cleared')
         return 0
 
-    if reset_stats:
+    if len(sys.argv) == 2 and sys.argv[1] == "-z":
         resetStatistics(cache)
         print('Statistics reset')
         return 0
 
-    # if len(sys.argv) == 3 and sys.argv[1] == "-M":
-    #     arg = sys.argv[2]
-    #     try:
-    #         maxSizeValue = int(arg)
-    #     except ValueError:
-    #         print("Given max size argument is not a valid integer: '{}'.".format(arg), file=sys.stderr)
-    #         return 1
-    #     if maxSizeValue < 1:
-    #         print("Max size argument must be greater than 0.", file=sys.stderr)
-    #         return 1
+    if len(sys.argv) == 3 and sys.argv[1] == "-M":
+        arg = sys.argv[2]
+        try:
+            maxSizeValue = int(arg)
+        except ValueError:
+            print("Given max size argument is not a valid integer: '{}'.".format(arg), file=sys.stderr)
+            return 1
+        if maxSizeValue < 1:
+            print("Max size argument must be greater than 0.", file=sys.stderr)
+            return 1
 
-    #     with cache.lock, cache.configuration as cfg:
-    #         cfg.setMaximumCacheSize(maxSizeValue)
-    #     return 0
+        with cache.lock, cache.configuration as cfg:
+            cfg.setMaximumCacheSize(maxSizeValue)
+        return 0
 
     compiler = findCompilerBinary()  # WILL TODO: we should find nvcc.exe here
     if not compiler:
